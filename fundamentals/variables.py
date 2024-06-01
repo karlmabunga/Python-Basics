@@ -155,5 +155,27 @@ dict = {
 # Can be two values either true or false
 
 false = 5 > 10
-print(false)
+# print(false)
 # Evaluates to false
+
+########################################################################################################################
+########################################################################################################################
+
+byte = bytes(4)
+# This will create an empty bytes that is 4 bytes long
+# Each byte is represented with \x followed by two hexadecimal numbers
+
+emoji = bytes('🫡', 'utf-8')
+# print(emoji)
+
+decoded = emoji.decode('utf-8')
+print(decoded)
+
+# Bytes objects are immutable
+# So if we want byte data that we can manipulate, we can use a byte array
+newEmoji = bytearray('🫡', 'utf-8')
+# print(newEmoji)
+
+
+newEmoji[3] = int('85', 16)
+print(newEmoji.decode('utf-8'))
