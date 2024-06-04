@@ -172,3 +172,57 @@ def slowFib(n):
 # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 # print(fib(365))
 # print(slowFib(35))
+
+
+# Anagram Groups
+# Given an array of strings strs, group all anagrams together into sublists. You may return the output in any order.
+# An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
+
+
+def groupAnagrams(strs):
+    res = {}
+
+    for s in strs:
+        key = [0] * 26
+        for c in s:
+            key[ord(c) - ord('a')] += 1
+        key = tuple(key)
+        if key not in res:
+            res[key] = [s]
+        else:
+            res[key].append(s)
+    return res.values()
+
+    
+# print(groupAnagrams(["act","pots","tops","cat","stop","hat"]))
+# Input: strs = ["act","pots","tops","cat","stop","hat"]
+# Output: [["hat"],["act", "cat"],["stop", "pots", "tops"]]
+
+
+# Top K Elements in List
+# Given an integer array nums and an integer k, return the k most frequent elements within the array.
+# The test cases are generated such that the answer is always unique.
+# You may return the output in any order.
+
+
+def topKFrequent(nums, k):
+    count = {}
+    for n in nums:
+        count[n] = count.get(n, 0) + 1
+    freq = [[] for _ in range(len(nums) + 1)]
+    for n, c in count.items():
+        freq[c].append(n)
+    res = []
+    for i in range(len(freq) - 1, 0, -1):
+        for n in freq[i]:
+            res.append(n)
+            if len(res) == k:
+                return res
+
+
+print(topKFrequent([1,1,2,2,2,3,3,3,3,3], 2))
+# Input: nums = [1,2,2,3,3,3], k = 2
+# Output: [2,3]
+print(topKFrequent([7,7], 1))
+# Input: nums = [7,7], k = 1
+# Output: [7]
