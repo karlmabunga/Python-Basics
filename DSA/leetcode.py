@@ -253,8 +253,8 @@ def productExceptSelf(nums):
 # Input: nums = [-1,0,1,2,3]
 # Output: [0,-6,0,0,0]
 
-print(productExceptSelf([1,2,4,6]))
-print(productExceptSelf([-1,0,1,2,3]))
+# print(productExceptSelf([1,2,4,6]))
+# print(productExceptSelf([-1,0,1,2,3]))
 
 ################################################################################################################################################################
 
@@ -280,5 +280,73 @@ def longestConsecutive(nums):
 # Output: 4
 # Input: nums = [0,3,2,5,4,6,1,1]
 # Output: 7
-print(longestConsecutive([2,20,4,10,3,4,5]))
-print(longestConsecutive([0,3,2,5,4,6,1,1]))
+# print(longestConsecutive([2,20,4,10,3,4,5]))
+# print(longestConsecutive([0,3,2,5,4,6,1,1]))
+
+################################################################################################################################################################
+
+
+# Three Integer Sum
+# Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] where nums[i] + nums[j] + nums[k] == 0, and the indices i, j and k are all distinct.
+
+# The output should not contain any duplicate triplets. You may return the output and the triplets in any order.
+
+def threeSum(nums):
+    res = []
+    nums.sort()
+    for i in range(len(nums)):
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
+        l, r = i + 1, len(nums) - 1
+        while l < r:
+            sum = nums[i] + nums[l] + nums[r]
+            if sum > 0:
+                r -= 1
+            if sum < 0:
+                l += 1
+            if sum == 0:
+                res.append([nums[i],nums[l],nums[r]])
+                l += 1
+                while l < r and nums[l] == nums[l - 1]:
+                    l += 1
+    return res
+# Input: nums = [-1,0,1,2,-1,-4]
+# Output: [[-1,-1,2],[-1,0,1]]
+# Input: nums = [0,1,1]
+# Output: []
+# Input: nums = [0,0,0]
+# Output: [[0,0,0]]
+# print(threeSum([-1,0,1,2,-1,-4]))
+# print(threeSum([0,0,0]))
+
+################################################################################################################################################################
+
+# Max Water Container
+
+# You are given an integer array heights where heights[i] represents the height of the i bar.
+# You may choose any two bars to form a container. Return the maximum amount of water a container can store.
+
+def maxArea(heights):
+    m = 0
+    l, r = 0, len(heights) - 1 
+    while l < r:
+    # calculate distance
+        dis = r - l
+    # multiply dis x min between two pillars for area
+        currArea = dis * min(heights[l], heights[r])
+    # update possible m
+        m = max(m, currArea)
+    # update pointers
+        if heights[l] > heights[r]:
+            r -= 1
+        else:
+            l += 1
+    return m
+
+
+# Input: height = [1,7,2,5,4,7,3,6]
+# Output: 36
+# Input: height = [2,2,2]
+# Output: 4
+print(maxArea([1,7,2,5,4,7,3,6]))
+print(maxArea([2,22,2]))
