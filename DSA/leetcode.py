@@ -220,9 +220,65 @@ def topKFrequent(nums, k):
                 return res
 
 
-print(topKFrequent([1,1,2,2,2,3,3,3,3,3], 2))
+# print(topKFrequent([1,1,2,2,2,3,3,3,3,3], 2))
 # Input: nums = [1,2,2,3,3,3], k = 2
 # Output: [2,3]
-print(topKFrequent([7,7], 1))
+# print(topKFrequent([7,7], 1))
 # Input: nums = [7,7], k = 1
 # Output: [7]
+
+################################################################################################################################################################
+
+# Products of Array Discluding Self
+# Given an integer array nums, return an array output where output[i] is the product of all the elements of nums except nums[i].
+
+# Each product is guaranteed to fit in a 32-bit integer.
+
+# Follow-up: Could you solve it in 𝑂(𝑛) time without using the division operation?
+
+def productExceptSelf(nums):
+    res = [1] * len(nums)
+    pre = 1
+    for i, n in enumerate(nums):
+        res[i] = pre
+        pre *= n
+    post = 1
+    for i in range(len(nums) - 1, -1, -1):
+        res[i] *= post
+        post *= nums[i]
+    return res
+    
+# Input: nums = [1,2,4,6]
+# Output: [48,24,12,8]
+# Input: nums = [-1,0,1,2,3]
+# Output: [0,-6,0,0,0]
+
+print(productExceptSelf([1,2,4,6]))
+print(productExceptSelf([-1,0,1,2,3]))
+
+################################################################################################################################################################
+
+# Longest Consecutive Sequence
+# Given an array of integers nums, return the length of the longest consecutive sequence of elements.
+
+# A consecutive sequence is a sequence of elements in which each element is exactly 1 greater than the previous element.
+
+# You must write an algorithm that runs in O(n) time.
+
+def longestConsecutive(nums):
+    s = set(nums)
+    longest = 0
+    for n in nums:
+        if (n - 1) not in s:
+            length = 0
+            while n + length in s:
+                length += 1
+                longest = max(longest, length)
+    return longest
+
+# Input: nums = [2,20,4,10,3,4,5]
+# Output: 4
+# Input: nums = [0,3,2,5,4,6,1,1]
+# Output: 7
+print(longestConsecutive([2,20,4,10,3,4,5]))
+print(longestConsecutive([0,3,2,5,4,6,1,1]))
