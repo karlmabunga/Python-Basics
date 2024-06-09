@@ -348,5 +348,94 @@ def maxArea(heights):
 # Output: 36
 # Input: height = [2,2,2]
 # Output: 4
-print(maxArea([1,7,2,5,4,7,3,6]))
-print(maxArea([2,22,2]))
+# print(maxArea([1,7,2,5,4,7,3,6]))
+# print(maxArea([2,22,2]))
+
+################################################################################################################################################################
+
+# Buy and Sell Crypto
+
+# You are given an integer array prices where prices[i] is the price of NeetCoin on the ith day.
+# You may choose a single day to buy one NeetCoin and choose a different day in the future to sell it.
+# Return the maximum profit you can achieve. You may choose to not make any transactions, in which case the profit would be 0.
+
+def maxProfit(prices):
+    prof = 0
+    l, r = 0, 1
+
+    while r < len(prices):
+        if prices[r] < prices[l]:
+            l = r
+        elif prices[r] > prices[l]:
+            prof = max(prof, prices[r] - prices[l])
+        r += 1
+
+    return prof
+# Input: prices = [10,1,5,6,7,1]
+# Output: 6
+# Input: prices = [10,8,7,5,2]
+# Output: 0
+# Input: prices = [5,1,5,6,7,1,10]
+# Output: 9
+# print(maxProfit([10,1,5,6,7,1]))
+# print(maxProfit([10,8,7,5,2]))
+# print(maxProfit([5,1,5,6,7,1,10]))
+
+################################################################################################################################################################
+
+# Longest Substring Without Duplicates
+# Given a string s, find the length of the longest substring without duplicate characters.
+# A substring is a contiguous sequence of characters within a string.
+
+
+def lengthOfLongestSubstring(s) -> int:
+        hashset = set()
+        res = 0
+        l, r = 0, 0
+        while r < len(s):
+            while s[r] in hashset:
+                hashset.remove(s[l])
+                l += 1
+            hashset.add(s[r])
+            res = max(res, (r - l) + 1)
+            r += 1
+        
+        return res
+
+# Input: s = "zxyzxyz"
+# Output: 3
+# Input: s = "xxxxx"
+# Output: 1
+
+# print(lengthOfLongestSubstring("zxyzxyz"))
+# print(lengthOfLongestSubstring("xxxxx"))
+
+################################################################################################################################################################
+
+# Longest Repeating Substring With Replacement
+# You are given a string s consisting of only uppercase english characters and an integer k. You can choose up to k characters of the string and replace them with any other uppercase English character.
+# After performing at most k replacements, return the length of the longest substring which contains only one distinct character.
+
+def characterReplacement(s, k):
+    chars = {}
+    res = 0
+    l = 0
+    maxf = 0
+    for r in range(len(s)):
+        chars[s[r]] = 1 + chars.get(s[r], 0)
+        maxf = max(maxf, chars[s[r]])
+        while (r - l + 1) - maxf > k:
+            chars[s[l]] -= 1
+            l += 1
+
+        res = max(res, r - l + 1)
+
+    return res
+
+
+# Input: s = "XYYX", k = 2
+# Output: 4
+# Input: s = "AAABABB", k = 1
+# Output: 5
+print(characterReplacement('XXYK', 2))
+print(characterReplacement('AAABABB', 1))
