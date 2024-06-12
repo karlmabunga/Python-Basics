@@ -488,3 +488,68 @@ def checkInclusion(s1, s2):
 # print(checkInclusion('abc', 'lecabee'))
 # print(checkInclusion('abc', 'lecaabee'))
 # print(checkInclusion('adc', 'dcda'))
+
+################################################################################################################################################################
+
+# Minimum Window With Characters
+# Given two strings s and t, return the shortest substring of s such that every character in t, including duplicates, is present in the substring. If such a substring does not exist, return an empty string "".
+# You may assume that the correct output is always unique.
+def minWindow(s, t):
+    if len(t) > len(s): return ''
+    window, countT = {}, {}
+    # add letters to countT
+    for i in range(len(t)):
+        countT[t[i]] = 1 + countT.get(t[i], 0)
+
+    # create left pointer and right pointer
+    l = 0
+    # create curCount and tarCount
+    curCount, tarCount = 0, len(t)
+    # create res and resLength var
+    res, resLength = [-1, -1], float('infinity')
+
+    # iterate through the s string
+    for r in range(len(s)):
+        # create char var
+        c = s[r]
+        # add char to window
+        window[c] = window.get(c, 0) + 1
+
+        # if window[char] == countT[char]
+        if c in countT and window[c] == countT[c]:
+            # curCount inc
+            curCount += 1
+
+        # while curCount and tarCount are the same
+            while curCount == tarCount:
+                # update res and resLength if length < resLength
+                if (r - l + 1) < resLength:
+                    res = [l, r]
+                    resLength = r - l + 1
+                
+                # remove left char from window
+                window[s[l]] -= 1
+                # if window[s[l]] < countT[s[l]]
+                if s[l] in countT and window[s[l]] < countT[s[l]]:
+                    # dec curCount
+                    curCount -= 1
+                    
+                # inc l
+                l += 1
+    # destructure l and r
+    l, r = res
+    # return s[l:r+1] if resLength != float('infinity')
+    return s[l:r+1] if resLength != float('infinity') else ''
+
+
+    
+    
+# Input: s = "OUZODYXAZV", t = "XYZ"
+# Output: "YXAZ"
+# Input: s = "xyz", t = "xyz"
+# Output: "xyz"
+# Input: s = "x", t = "xy"
+# Output: ""
+print(minWindow('OUZODYXAZV', 'XYZ'))
+print(minWindow('xyz', 'xyz'))
+print(minWindow('x', 'xy'))
