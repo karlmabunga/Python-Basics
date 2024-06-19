@@ -587,5 +587,38 @@ def maxSlidingWindow(nums, k):
 #  1  2  1 [0  4  2] 6        4
 #  1  2  1  0 [4  2  6]       6
 
-print(maxSlidingWindow([1,2,1,0,4,2,6], 3))
-print(maxSlidingWindow([1,-1], 1))
+# print(maxSlidingWindow([1,2,1,0,4,2,6], 3))
+# print(maxSlidingWindow([1,-1], 1))
+
+################################################################################################################################################################
+# 2062. Count Vowel Substrings of a String
+
+# A substring is a contiguous (non-empty) sequence of characters within a string.
+# A vowel substring is a substring that only consists of vowels ('a', 'e', 'i', 'o', and 'u') and has all five vowels present in it.
+# Given a string word, return the number of vowel substrings in word.
+
+def countVowelSubstrings(word):
+    vowels = set("aeiou")
+    count = 0
+
+    # Brute Force Solution
+    for i in range(len(word)):
+        s = set()
+        if word[i] in vowels:
+            for j in range(i, len(word)):
+                if word[j] in vowels:
+                    s.add(word[j])
+                    if s == vowels:
+                        count += 1
+                else:
+                    break
+
+    return count
+
+
+# Input: word = "aeiouu"
+# Output: 2
+# Explanation: The vowel substrings of word are as follows:
+# - "aeiou"
+# - "aeiouu"
+print(countVowelSubstrings('aeiouu'))
