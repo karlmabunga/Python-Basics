@@ -169,7 +169,7 @@ emoji = bytes('🫡', 'utf-8')
 # print(emoji)
 
 decoded = emoji.decode('utf-8')
-print(decoded)
+# print(decoded)
 
 # Bytes objects are immutable
 # So if we want byte data that we can manipulate, we can use a byte array
@@ -178,4 +178,17 @@ newEmoji = bytearray('🫡', 'utf-8')
 
 
 newEmoji[3] = int('85', 16)
-print(newEmoji.decode('utf-8'))
+# print(newEmoji.decode('utf-8'))
+
+########################################################################################################################
+########################################################################################################################
+
+import numpy as np
+import sys
+print(sys.version)
+x = [[1,2,3],[4,5,6],[7,8,9]]
+# print(x)
+
+arr = np.array(x)
+# print(arr)
+# print(arr.shape)
