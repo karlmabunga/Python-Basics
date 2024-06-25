@@ -25,3 +25,24 @@ git clone https://github.com/karlmabunga/python-basics.git
 ```zsh
 python [file].py
 ```
+
+
+## Creating Python Virtual Environment
+
+In terminal:
+
+`python -m venv {name of venv}`
+
+`source {name of venv}/bin/activate`
+
+To update pip:
+
+`pip install --upgrade pip`
+
+To install package to venv:
+
+`pip install {name of package}`
+
+To deactivate venv:
+
+deactivate - `deactivate` or `source deactivate`
