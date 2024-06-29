@@ -723,8 +723,39 @@ def evalRPN(tokens):
 
 
 
-print(evalRPN(["1","2","+","3","*","4","-"]))
+# print(evalRPN(["1","2","+","3","*","4","-"]))
 # Input: tokens = ["1","2","+","3","*","4","-"]
 # Output: 5
 # Explanation: ((1 + 2) * 3) - 4 = 5
 
+# (Backtrack problem)
+def generateParenthesis(n):
+    stack = []
+    res = []
+
+    def backtrack(openN, closeN):
+        if openN == closeN == n:
+            res.append("".join(stack))
+        
+        if openN < n:
+            stack.append('(')
+            backtrack(openN + 1, closeN)
+            stack.pop()
+        
+        if closeN < openN:
+            stack.append(')')
+            backtrack(openN, closeN + 1)
+            stack.pop()
+    
+    backtrack(0, 0)
+    return res
+
+
+# Input: n = 1
+# Output: ["()"]
+# Input: n = 3
+# Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+print(generateParenthesis(1))
+print(generateParenthesis(3))
+print(generateParenthesis(2))
