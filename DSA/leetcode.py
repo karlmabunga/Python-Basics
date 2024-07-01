@@ -756,6 +756,31 @@ def generateParenthesis(n):
 # Input: n = 3
 # Output: ["((()))","(()())","(())()","()(())","()()()"]
 
-print(generateParenthesis(1))
-print(generateParenthesis(3))
-print(generateParenthesis(2))
+# print(generateParenthesis(1))
+# print(generateParenthesis(3))
+# print(generateParenthesis(2))
+
+# Daily Temperatures
+# You are given an array of integers temperatures where temperatures[i] represents the daily temperatures on the ith day.
+
+# Return an array result where result[i] is the number of days after the ith day before a warmer temperature appears on a future day. If there is no day in the future where a warmer temperature will appear for the ith day, set result[i] to 0 instead.
+
+# Stack problem
+def dailyTemperatures(temperatures):
+    res = [0] * len(temperatures)
+    stack = []
+
+    for i, t in enumerate(temperatures):
+        while stack and t > stack[-1][0]:
+            temp, idx = stack.pop()
+            res[idx] = i - idx
+        stack.append([t, i])
+    
+    return res
+
+# Input: temperatures = [30,38,30,36,35,40,28]
+# Output: [1,4,1,2,1,0,0]
+# Input: temperatures = [22,21,20]
+# Output: [0,0,0]
+print(dailyTemperatures([30,38,30,36,35,40,28]))
+print(dailyTemperatures([22,21,20]))
