@@ -662,6 +662,9 @@ def isValid(s):
 # print(isValid('[(])'))
 
 
+################################################################################################################################################################
+
+
 # Minimum Stack
 # Design a stack class that supports the push, pop, top, and getMin operations.
 
@@ -696,6 +699,9 @@ class MinStack:
         return self.minStack[-1]
 
 
+################################################################################################################################################################
+
+
 # Evaluate Reverse Polish Notation
 
 # You are given an array of strings tokens that represents a valid arithmetic expression in Reverse Polish Notation.
@@ -727,6 +733,10 @@ def evalRPN(tokens):
 # Input: tokens = ["1","2","+","3","*","4","-"]
 # Output: 5
 # Explanation: ((1 + 2) * 3) - 4 = 5
+
+
+################################################################################################################################################################
+
 
 # (Backtrack problem)
 def generateParenthesis(n):
@@ -760,6 +770,9 @@ def generateParenthesis(n):
 # print(generateParenthesis(3))
 # print(generateParenthesis(2))
 
+################################################################################################################################################################
+
+
 # Daily Temperatures
 # You are given an array of integers temperatures where temperatures[i] represents the daily temperatures on the ith day.
 
@@ -782,5 +795,74 @@ def dailyTemperatures(temperatures):
 # Output: [1,4,1,2,1,0,0]
 # Input: temperatures = [22,21,20]
 # Output: [0,0,0]
-print(dailyTemperatures([30,38,30,36,35,40,28]))
-print(dailyTemperatures([22,21,20]))
+# print(dailyTemperatures([30,38,30,36,35,40,28]))
+# print(dailyTemperatures([22,21,20]))
+
+
+################################################################################################################################################################
+
+
+# Car Fleet
+# There are n cars traveling to the same destination on a one-lane highway.
+# You are given two arrays of integers position and speed, both of length n.
+# position[i] is the position of the ith car (in miles)
+# speed[i] is the speed of the ith car (in miles per hour)
+# The destination is at position target miles.
+
+# A car can not pass another car ahead of it. It can only catch up to another car and then drive at the same speed as the car ahead of it.
+# A car fleet is a non-empty set of cars driving at the same position and same speed. A single car is also considered a car fleet.
+
+# If a car catches up to a car fleet the moment the fleet reaches the destination, then the car is considered to be part of the fleet.
+# Return the number of different car fleets that will arrive at the destination.
+
+# time O(N log N)
+# space O(N)
+def carFleet(target, position, speed):
+    # zip cars
+    cars = [[p,s] for p, s in zip(position, speed)]
+    # use stack
+    stack = []
+
+    #iterate through sorted descending position
+    for p, s in sorted(cars)[::-1]:
+        # push time to target to the stack
+        stack.append(float(target - p) / s)
+        # if two in stack and top of stack time is faster then 2nd in stack
+        if len(stack) >= 2 and stack[-1] <= stack[-2]:
+            # then we know it catches up to the car in front and becomes one fleet so we can pop from stack
+            stack.pop()
+    # return stack length (fleets)
+    return len(stack)
+
+# Input: target = 10, position = [1,4], speed = [3,2]
+# Output: 1
+# Explanation: The cars starting at 1 (speed 3) and 4 (speed 2) become a fleet, meeting each other at 10, the destination.
+# Input: target = 10, position = [4,1,0,7], speed = [2,2,1,1]
+# Output: 3
+# Explanation: The cars starting at 4 and 7 become a fleet at position 10. The cars starting at 1 and 0 never catch up to the car ahead of them. Thus, there are 3 car fleets that will arrive at the destination.
+
+
+# print(carFleet(10, [1,4], [3,2]))
+# print(carFleet(10, [4,1,0,7], [2,2,1,1]))
+print(carFleet(10, [6,8], [3,2]))
+
+
+################################################################################################################################################################
+
+
+# Largest Rectangle In Histogram
+
+# You are given an array of integers heights where heights[i] represents the height of a bar. The width of each bar is 1.
+# Return the area of the largest rectangle that can be formed among the bars.
+# Note: This chart is known as a histogram.
+
+def largestRectangleArea():
+    pass
+
+
+# Input: heights = [7,1,7,2,2,4]
+# Output: 8
+# Input: heights = [1,3,7]
+# Output: 7
+# print(largestRectangleArea([7,1,7,2,2,4]))
+# print(largestRectangleArea([1,3,7]))
