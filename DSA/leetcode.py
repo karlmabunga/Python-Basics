@@ -844,7 +844,7 @@ def carFleet(target, position, speed):
 
 # print(carFleet(10, [1,4], [3,2]))
 # print(carFleet(10, [4,1,0,7], [2,2,1,1]))
-print(carFleet(10, [6,8], [3,2]))
+# print(carFleet(10, [6,8], [3,2]))
 
 
 ################################################################################################################################################################
@@ -856,13 +856,37 @@ print(carFleet(10, [6,8], [3,2]))
 # Return the area of the largest rectangle that can be formed among the bars.
 # Note: This chart is known as a histogram.
 
-def largestRectangleArea():
-    pass
+def largestRectangleArea(heights):
+    # create max var to track
+    maxArea = 0
+    # store tuple of index and height
+    stack = [] # pair: (index, height)
+
+    # iterate through heights
+    for i, h in enumerate(heights):
+        # track where to start from
+        start = i
+        # while something in stack and current height is less than top of stack:
+        while stack and stack[-1][1] > h:
+            # pop off stack i and h
+            index, height = stack.pop()
+            # compare max area between max and popped height * i - index
+            maxArea = max(maxArea, height * (i - index))
+            # assign start to popped index
+            start = index
+        # push (start and height) to stack
+        stack.append((start, h))
+    # iterate through the stack
+    for i, h in stack:
+        #compare max area to max and h * len(heights - i)
+        maxArea = max(maxArea, h * (len(heights) - i))
+    # return maxArea
+    return maxArea
 
 
 # Input: heights = [7,1,7,2,2,4]
 # Output: 8
 # Input: heights = [1,3,7]
 # Output: 7
-# print(largestRectangleArea([7,1,7,2,2,4]))
-# print(largestRectangleArea([1,3,7]))
+print(largestRectangleArea([7,1,7,2,2,4]))
+print(largestRectangleArea([1,3,7]))
