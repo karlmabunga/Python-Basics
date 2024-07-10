@@ -890,3 +890,92 @@ def largestRectangleArea(heights):
 # Output: 7
 print(largestRectangleArea([7,1,7,2,2,4]))
 print(largestRectangleArea([1,3,7]))
+
+
+################################################################################################################################################################
+
+# Binary Search
+
+# You are given an array of distinct integers nums, sorted in ascending order, and an integer target.
+# Implement a function to search for target within nums. If it exists, then return its index, otherwise, return -1.
+# Your solution must run in O(logn) time.
+
+def search(nums, target):
+    res = -1
+    l, r = 0, len(nums) - 1
+    while l <= r:
+        mid = (l + r) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            l = mid + 1
+        elif nums[mid] >= target:
+            r = mid - 1
+    
+    return res
+
+
+
+# Input: nums = [-1,0,2,4,6,8], target = 4
+# Output: 3
+# Input: nums = [-1,0,2,4,6,8], target = 3
+# Output: -1
+# Input: nums = [-1,0,3,5,9,12], target = 13
+# Output: -1
+
+print(search([-1,0,2,4,6,8], 4))
+print(search([-1,0,2,4,6,8], 3))
+print(search([-1,0,3,5,9,12], 13))
+
+
+################################################################################################################################################################
+
+
+# Search 2D Matrix
+# You are given an m x n 2-D integer array matrix and an integer target.
+
+# Each row in matrix is sorted in non-decreasing order.
+# The first integer of every row is greater than the last integer of the previous row.
+# Return true if target exists within matrix or false otherwise.
+
+# Can you write a solution that runs in O(log(m * n)) time?
+
+def searchMatrix(matrix, target):
+    rows, cols = len(matrix), len(matrix[0])
+    top, bot = 0, rows - 1
+
+    #iterate through rows and check target < than first index and > than last index
+    while top <= bot:
+        row = (top + bot) // 2
+        if target < matrix[row][0]:
+            bot = row - 1
+        elif target > matrix[row][-1]:
+            top = row + 1
+        else:
+            break
+    if top > bot:
+        return False
+    row = (top + bot) // 2
+    l, r = 0, cols - 1
+
+    while l <= r:
+        m = (l + r) // 2
+        if target < matrix[row][m]:
+            r = m - 1
+        elif target > matrix[row][m]:
+            l = m + 1
+        else:
+            return True
+    return False
+        
+
+
+# Input: matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 10
+# Output: true
+# Input: matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 15
+# Output: false
+print(searchMatrix([[1,2,4,8],[10,11,12,13],[14,20,30,40]], 10))
+print(searchMatrix([[1,2,4,8],[10,11,12,13],[14,20,30,40]], 15))
+
+
+################################################################################################################################################################
