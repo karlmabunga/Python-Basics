@@ -563,16 +563,34 @@ def minWindow(s, t):
 # Return a list that contains the maximum element in the window at each step.
 
 def maxSlidingWindow(nums, k):
+    # create res list
     res = []
-    l = 0
+    # use deque
+    q = collections.deque()
+    l = r = 0
 
-    # Brute force approach
-    for r in range(k - 1, len(nums)):
-        n = -float('infinity')
-        for i in range(l, r + 1):
-            n = max(n, nums[i])
-        res.append(n)
-        l += 1
+    # while r < len(nums)
+    while r < len(nums):
+        # check queue and top of queue is less than currNum
+        while q and nums[q[-1]] < nums[r]:
+            # pop from queue
+            q.pop()
+        # append r to queue
+        q.append(r)
+
+        # if queue[0] < l then our range is out of bounds
+        if l > q[0]:
+            # pop from left of queue
+            q.popleft()
+
+        # if we have valid window then add to res the rightmost value in queue
+        if (r + 1) >= k:
+            res.append(nums[q[0]])
+            # increment l
+            l += 1
+        r += 1
+    
+    # return res
     return res
 
 
@@ -587,8 +605,8 @@ def maxSlidingWindow(nums, k):
 #  1  2  1 [0  4  2] 6        4
 #  1  2  1  0 [4  2  6]       6
 
-# print(maxSlidingWindow([1,2,1,0,4,2,6], 3))
-# print(maxSlidingWindow([1,-1], 1))
+print(maxSlidingWindow([1, 1, 1, 1,2,1,0,4,2,6], 3))
+print(maxSlidingWindow([1,-1], 1))
 
 ################################################################################################################################################################
 # 2062. Count Vowel Substrings of a String
