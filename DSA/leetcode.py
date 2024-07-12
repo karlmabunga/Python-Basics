@@ -1,3 +1,7 @@
+import collections
+import math
+
+
 def stringReversal(s):
     res = ''
 
@@ -605,8 +609,8 @@ def maxSlidingWindow(nums, k):
 #  1  2  1 [0  4  2] 6        4
 #  1  2  1  0 [4  2  6]       6
 
-print(maxSlidingWindow([1, 1, 1, 1,2,1,0,4,2,6], 3))
-print(maxSlidingWindow([1,-1], 1))
+# print(maxSlidingWindow([1, 1, 1, 1,2,1,0,4,2,6], 3))
+# print(maxSlidingWindow([1,-1], 1))
 
 ################################################################################################################################################################
 # 2062. Count Vowel Substrings of a String
@@ -906,8 +910,8 @@ def largestRectangleArea(heights):
 # Output: 8
 # Input: heights = [1,3,7]
 # Output: 7
-print(largestRectangleArea([7,1,7,2,2,4]))
-print(largestRectangleArea([1,3,7]))
+# print(largestRectangleArea([7,1,7,2,2,4]))
+# print(largestRectangleArea([1,3,7]))
 
 
 ################################################################################################################################################################
@@ -941,9 +945,9 @@ def search(nums, target):
 # Input: nums = [-1,0,3,5,9,12], target = 13
 # Output: -1
 
-print(search([-1,0,2,4,6,8], 4))
-print(search([-1,0,2,4,6,8], 3))
-print(search([-1,0,3,5,9,12], 13))
+# print(search([-1,0,2,4,6,8], 4))
+# print(search([-1,0,2,4,6,8], 3))
+# print(search([-1,0,3,5,9,12], 13))
 
 
 ################################################################################################################################################################
@@ -992,8 +996,67 @@ def searchMatrix(matrix, target):
 # Output: true
 # Input: matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 15
 # Output: false
-print(searchMatrix([[1,2,4,8],[10,11,12,13],[14,20,30,40]], 10))
-print(searchMatrix([[1,2,4,8],[10,11,12,13],[14,20,30,40]], 15))
+# print(searchMatrix([[1,2,4,8],[10,11,12,13],[14,20,30,40]], 10))
+# print(searchMatrix([[1,2,4,8],[10,11,12,13],[14,20,30,40]], 15))
 
 
 ################################################################################################################################################################
+
+# Eating Bananas
+
+# You are given an integer array piles where piles[i] is the number of bananas in the ith pile. You are also given an integer h, which represents the number of hours you have to eat all the bananas.
+# You may decide your bananas-per-hour eating rate of k. Each hour, you may choose a pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, you may finish eating the pile but you can not eat from another pile in the same hour.
+# Return the minimum integer k such that you can eat all the bananas within h hours.
+
+# T: O(log(maxP) * P)
+# S: O(1)
+def minEatingSpeed(piles, h):
+    l, r = 1, max(piles)
+    res = r
+
+    while l <= r:
+        k = (l + r) // 2
+        hours = 0
+        for p in piles:
+            hours += math.ceil(p / k)
+        if hours <= h:
+            res = min(res, k)
+            r = k - 1
+        else:
+            l = k + 1
+    return res
+            
+
+
+# Input: piles = [1,4,3,2], h = 9
+# Output: 2
+# Explanation: With an eating rate of 2, you can eat the bananas in 6 hours. 
+# With an eating rate of 1, you would need 10 hours to eat all the bananas (which exceeds h=9), thus the minimum eating rate is 2.
+# Input: piles = [25,10,23,4], h = 4
+# Output: 25
+print(minEatingSpeed([1,4,3,2], 9))
+print(minEatingSpeed([25,10,23,4], 4))
+
+
+################################################################################################################################################################
+
+
+# Find Minimum in Rotated Sorted Array
+# You are given an array of length n which was originally sorted in ascending order. It has now been rotated between 1 and n times. For example, the array nums = [1,2,3,4,5,6] might become:
+
+# [3,4,5,6,1,2] if it was rotated 4 times.
+# [1,2,3,4,5,6] if it was rotated 6 times.
+# Notice that rotating the array 4 times moves the last four elements of the array to the beginning. Rotating the array 6 times produces the original array.
+
+# Assuming all elements in the rotated sorted array nums are unique, return the minimum element of this array.
+
+# A solution that runs in O(n) time is trivial, can you write an algorithm that runs in O(log n) time?
+
+def findMin(nums):
+    pass
+# Input: nums = [3,4,5,6,1,2]
+# Output: 1
+# Input: nums = [4,5,0,1,2,3]
+# Output: 0
+# Input: nums = [4,5,6,7]
+# Output: 4
