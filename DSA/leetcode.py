@@ -1034,8 +1034,8 @@ def minEatingSpeed(piles, h):
 # With an eating rate of 1, you would need 10 hours to eat all the bananas (which exceeds h=9), thus the minimum eating rate is 2.
 # Input: piles = [25,10,23,4], h = 4
 # Output: 25
-print(minEatingSpeed([1,4,3,2], 9))
-print(minEatingSpeed([25,10,23,4], 4))
+# print(minEatingSpeed([1,4,3,2], 9))
+# print(minEatingSpeed([25,10,23,4], 4))
 
 
 ################################################################################################################################################################
@@ -1052,8 +1052,23 @@ print(minEatingSpeed([25,10,23,4], 4))
 
 # A solution that runs in O(n) time is trivial, can you write an algorithm that runs in O(log n) time?
 
+# T: O(log(N))
+# S: O(1)
 def findMin(nums):
-    pass
+    res = nums[0]
+    l, r = 0, len(nums) - 1
+
+    while l <= r:
+        if nums[l] < nums[r]:
+            res = min(res, nums[l])
+            break
+        m = (l + r) // 2
+        res = min(res, nums[m])
+        if nums[l] <= nums[m]:
+            l = m + 1
+        else:
+            r = m - 1
+    return res
 # Input: nums = [3,4,5,6,1,2]
 # Output: 1
 # Input: nums = [4,5,0,1,2,3]
