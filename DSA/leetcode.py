@@ -1182,16 +1182,76 @@ class TimeMap:
                 r = m - 1
         return res
     
-timemap = TimeMap()
+# timemap = TimeMap()
 
-timemap.set('KM', 'Fantasy', 1)
-timemap.set('KM', 'Football', 2)
-timemap.set('RM', 'Fantasy', 3)
-print(timemap.get('KM', 1))
-# Expect: Fantasy
-print(timemap.get('KM', 2))
-# Expect: Football
-print(timemap.get('RM', 5))
-# Expect: Fantasy
-print(timemap.get('KM', 12))
-# Expect: Football
+# timemap.set('KM', 'Fantasy', 1)
+# timemap.set('KM', 'Football', 2)
+# timemap.set('RM', 'Fantasy', 3)
+# print(timemap.get('KM', 1))
+# # Expect: Fantasy
+# print(timemap.get('KM', 2))
+# # Expect: Football
+# print(timemap.get('RM', 5))
+# # Expect: Fantasy
+# print(timemap.get('KM', 12))
+# # Expect: Football
+
+
+
+################################################################################################################################################################
+
+# Median of Two Sorted Arrays
+# You are given two integer arrays nums1 and nums2 of size m and n respectively, where each is sorted in ascending order. Return the median value among all elements of the two arrays.
+
+# Your solution must run in O(log(m + n))
+
+# Constraints:
+# nums1.length == m
+# nums2.length == n
+# 0 <= m <= 1000
+# 0 <= n <= 1000
+# -10^6 <= nums1[i], nums2[i] <= 10^6
+
+# T: O(log(min(N, M)))
+# S: O(1)
+def findMedianSortedArrays(nums1, nums2):
+    total = len(nums1) + len(nums2)
+    half = total // 2
+    A, B = nums1, nums2
+
+    if len(B) < len(A):
+        A, B = B, A
+    l, r = 0, len(A) - 1
+    while True:
+        pointerA = (l + r) // 2
+        pointerB = half - pointerA - 2
+
+        aLeft = A[pointerA] if pointerA >= 0 else float('-infinity')
+        aRight = A[pointerA + 1] if pointerA + 1 < len(A) else float('infinity')
+        bLeft = B[pointerB] if pointerB >= 0 else float('-infinity')
+        bRight = B[pointerB + 1] if pointerB + 1 < len(B) else float('infinity')
+
+        if aLeft <= bRight and bLeft <= aRight:
+            if total % 2:
+                return min(aRight,bRight)
+            return (max(aLeft,bLeft) + min(aRight,bRight)) / 2
+        elif aLeft > bRight:
+            r = pointerA - 1
+        else:
+            l = pointerA + 1
+
+
+# Example 1:
+# Input: nums1 = [1,2], nums2 = [3]
+# Output: 2.0
+# Explanation: Among [1, 2, 3] the median is 2.
+
+# Example 2:
+# Input: nums1 = [1,3], nums2 = [2,4]
+# Output: 2.5
+# Explanation: Among [1, 2, 3, 4] the median is (2 + 3) / 2 = 2.5.
+
+print(findMedianSortedArrays([1,2], [3]))
+# Output: 2.0
+print(findMedianSortedArrays([1,3], [2,4]))
+# Output: 2.5
