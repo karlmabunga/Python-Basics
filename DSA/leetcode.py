@@ -1234,7 +1234,8 @@ def findMedianSortedArrays(nums1, nums2):
         if aLeft <= bRight and bLeft <= aRight:
             if total % 2:
                 return min(aRight,bRight)
-            return (max(aLeft,bLeft) + min(aRight,bRight)) / 2
+            # use depending on Python version
+            return float(max(aLeft,bLeft) + min(aRight,bRight)) / 2
         elif aLeft > bRight:
             r = pointerA - 1
         else:
@@ -1251,7 +1252,42 @@ def findMedianSortedArrays(nums1, nums2):
 # Output: 2.5
 # Explanation: Among [1, 2, 3, 4] the median is (2 + 3) / 2 = 2.5.
 
-print(findMedianSortedArrays([1,2], [3]))
+# print(findMedianSortedArrays([1,2], [3]))
 # Output: 2.0
-print(findMedianSortedArrays([1,3], [2,4]))
+# print(findMedianSortedArrays([1,3], [2,4]))
 # Output: 2.5
+
+
+################################################################################################################################################################
+
+
+# Reverse a Linked List
+# Solved 
+# Given the beginning of a singly linked list head, reverse the list, and return the new beginning of the list.
+
+def reverseList(head):
+    curr, prev = head, None
+
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nxt
+
+    return prev
+        
+
+# Example 1:
+
+# Input: head = [0,1,2,3]
+
+# Output: [3,2,1,0]
+# Example 2:
+
+# Input: head = []
+
+# Output: []
+# Constraints:
+
+# 0 <= The length of the list <= 1000.
+# -1000 <= Node.val <= 1000
