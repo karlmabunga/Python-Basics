@@ -1394,3 +1394,175 @@ def reorderList(head):
         first.next, second.next = second, tmp1
         first, second = tmp1, tmp2
 
+
+
+################################################################################################################################################################
+
+
+# Remove Node From End of Linked List
+# You are given the beginning of a linked list head, and an integer n.
+# Remove the nth node from the end of the list and return the beginning of the list.
+
+# Example 1:
+# Input: head = [1,2,3,4], n = 2
+# Output: [1,2,4]
+
+# Example 2:
+# Input: head = [5], n = 1
+# Output: []
+
+# Example 3:
+# Input: head = [1,2], n = 2
+# Output: [2]
+
+# Constraints:
+# The number of nodes in the list is sz.
+# 1 <= sz <= 30
+# 0 <= Node.val <= 100
+# 1 <= n <= sz
+
+
+# T: O(N)
+# S: O(1)
+def removeNthFromEnd(head, n):
+    # start a dummy node to point to head
+    start = ListNode(0, head)
+    # have l pointer at starter node and r pointer at head + n
+    l = start
+    r = head
+    while n > 0 and r:
+        r = r.next
+        n -= 1
+    # traverse until r pointer is no longer valid
+    while r:
+        l = l.next
+        r = r.next
+    # l pointer will be in correct position
+    # point l.next to next next
+    l.next = l.next.next
+    
+    # return starter next
+    return start.next
+
+
+################################################################################################################################################################
+
+# Copy Linked List with Random Pointer
+# You are given the head of a linked list of length n. Unlike a singly linked list, each node contains an additional pointer random, which may point to any node in the list, or null.
+
+# Create a deep copy of the list.
+# The deep copy should consist of exactly n new nodes, each including:
+
+# The original value val of the copied node
+# A next pointer to the new node corresponding to the next pointer of the original node
+# A random pointer to the new node corresponding to the random pointer of the original node
+# Note: None of the pointers in the new list should point to nodes in the original list.
+
+# Return the head of the copied linked list.
+
+# In the examples, the linked list is represented as a list of n nodes. Each node is represented as a pair of [val, random_index] where random_index is the index of the node (0-indexed) that the random pointer points to, or null if it does not point to any node.
+
+# T: O(N)
+# S: O(N)
+def copyRandomList(head):
+    nodes = {}
+    curr = head
+    while curr:
+        nodes[curr] = ListNode(curr.val)
+        curr = curr.next
+    curr = head
+    while curr:
+        nodes[curr].next = nodes[curr.next]
+        nodes[curr].random = nodes[curr.random]
+        curr = curr.next
+    return nodes[head]
+
+
+################################################################################################################################################################
+
+
+# Add Two Numbers
+
+# You are given two non-empty linked lists, l1 and l2, where each represents a non-negative integer.
+# The digits are stored in reverse order, e.g. the number 123 is represented as 3 -> 2 -> 1 -> in the linked list.
+# Each of the nodes contains a single digit. You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+# Return the sum of the two numbers as a linked list.
+
+# Input: l1 = [1,2,3], l2 = [4,5,6]
+# Output: [5,7,9]
+# Explanation: 321 + 654 = 975.
+
+# T: O(N)
+# S: O(1)
+def addTwoNumbers(l1, l2):
+    start = res = ListNode()
+    carry = 0
+    while l1 or l2 or carry:
+        v1, v2 = 0, 0
+        if l1:
+            v1 = l1.val
+            l1 = l1.next
+        if l2:
+            v2 = l2.val
+            l2 = l2.next
+        sum = v1 + v2 + carry
+        carry = 1 if sum > 9 else 0
+        sum = sum % 10
+        res.next = ListNode(sum)
+        res = res.next
+    return start.next
+
+
+################################################################################################################################################################
+
+
+# Linked List Cycle Detection
+
+# Given the beginning of a linked list head, return true if there is a cycle in the linked list. Otherwise, return false.
+# There is a cycle in a linked list if at least one node in the list that can be visited again by following the next pointer.
+# Internally, index determines the index of the beginning of the cycle, if it exists. The tail node of the list will set it's next pointer to the index-th node. If index = -1, then the tail node points to null and no cycle exists.
+
+# Note: index is not given to you as a parameter.
+
+# Input: head = [1,2,3,4], index = 1
+# Output: true
+
+# T: O(1)
+# S: O(1)
+def hasCycle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+    return False
+
+
+################################################################################################################################################################
+
+# Find Duplicate Integer
+
+# You are given an array of integers nums containing n + 1 integers. Each integer in nums is in the range [1, n] inclusive.
+# Every integer appears exactly once, except for one integer which appears two or more times. Return the integer that appears more than once.
+
+# Example 1:
+# Input: nums = [1,2,3,2,2]
+# Output: 2
+
+# Example 2:
+# Input: nums = [1,2,3,4,4]
+# Output: 4
+# Follow-up: Can you solve the problem without modifying the array nums and using O(1) extra space?
+
+# Constraints:
+# 1 <= n <= 10000
+# nums.length == n + 1
+# 1 <= nums[i] <= n
+
+def findDuplicate(nums):
+    pass
+
+
+print(findDuplicate([1,2,3,2,2]))
+print(findDuplicate([1,2,3,4,4]))
